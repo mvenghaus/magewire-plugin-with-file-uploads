@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd"
+>
+    <preference for="MVenghaus\MagewirePluginWithFileUploads\Api\UploadAdapterInterface"
+                type="MVenghaus\MagewirePluginWithFileUploads\Model\Adapter\Local"/>
+
+    <type name="Magewirephp\Magewire\Model\Hydrator\Property">
+        <plugin name="MVenghaus_MagewirePluginWithFileUploads_Plugin_Magewirephp_Magewire_Model_Hydrator_PropertyPlugin"
+                type="MVenghaus\MagewirePluginWithFileUploads\Plugin\Magewirephp\Magewire\Model\Hydrator\PropertyPlugin"
+        />
+    </type>
+</config>
