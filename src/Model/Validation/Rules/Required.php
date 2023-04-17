@@ -1,8 +1,10 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Magewirephp\Magewire\Model\Upload\Validation\Rules;
+declare(strict_types=1);
+
+namespace MVenghaus\MagewirePluginWithFileUploads\Model\Validation\Rules;
 
 class Required extends \Rakit\Validation\Rules\Required
 {
-    use \Magewirephp\Magewire\Model\Upload\Validation\Rules\Traits\FileTrait;
+    use \MVenghaus\MagewirePluginWithFileUploads\Model\Validation\Rules\Traits\FileTrait;
 }

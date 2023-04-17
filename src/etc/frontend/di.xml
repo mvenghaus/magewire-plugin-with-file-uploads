@@ -10,4 +10,10 @@
                 type="MVenghaus\MagewirePluginWithFileUploads\Plugin\Magewirephp\Magewire\Model\Hydrator\PropertyPlugin"
         />
     </type>
+
+    <type name="Rakit\Validation\Validator">
+        <plugin name="MVenghaus_MagewirePluginWithFileUploads_Plugin_Rakit_Validation_ValidatorPlugin"
+                type="MVenghaus\MagewirePluginWithFileUploads\Plugin\Rakit\Validation\ValidatorPlugin"
+        />
+    </type>
 </config>

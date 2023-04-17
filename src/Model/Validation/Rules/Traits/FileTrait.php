@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Magewirephp\Magewire\Model\Upload\Validation\Rules\Traits;
+declare(strict_types=1);
+
+namespace MVenghaus\MagewirePluginWithFileUploads\Model\Validation\Rules\Traits;
 
 trait FileTrait
 {
