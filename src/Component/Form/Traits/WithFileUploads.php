@@ -7,6 +7,7 @@ namespace MVenghaus\MagewirePluginWithFileUploads\Component\Form\Traits;
 use Magento\Framework\App\ObjectManager;
 use Magewirephp\Magewire\Model\Action\SyncInput;
 use MVenghaus\MagewirePluginWithFileUploads\Api\UploadAdapterInterface;
+use MVenghaus\MagewirePluginWithFileUploads\Helper\Directory;
 use MVenghaus\MagewirePluginWithFileUploads\Model\Property\TemporaryUploadedFile;
 
 trait WithFileUploads
@@ -29,13 +30,17 @@ trait WithFileUploads
         if ($isMultiple) {
             $temporaryUploadedFiles = [];
             foreach ($tmpPath as $tmpFile) {
-                $temporaryUploadedFiles[] = new TemporaryUploadedFile($tmpFile);
+                $temporaryUploadedFiles[] = new TemporaryUploadedFile(
+                    Directory::getTmpDirectory()->getAbsolutePath($tmpFile)
+                );
             }
 
             $this->emit('upload:finished', $name, $tmpPath)->self();
             $syncInput->handle($this, ['name' => $name, 'value' => $temporaryUploadedFiles]);
         } else {
-            $temporaryUploadedFile = new TemporaryUploadedFile($tmpPath[0]);
+            $temporaryUploadedFile = new TemporaryUploadedFile(
+                Directory::getTmpDirectory()->getAbsolutePath($tmpPath[0])
+            );
 
             $this->emit('upload:finished', $name, $tmpPath)->self();
             $syncInput->handle($this, ['name' => $name, 'value' => $temporaryUploadedFile]);

@@ -4,29 +4,32 @@ declare(strict_types=1);
 
 namespace MVenghaus\MagewirePluginWithFileUploads\Model\Property;
 
+use MVenghaus\MagewirePluginWithFileUploads\Helper\TempFile;
 
 class TemporaryUploadedFile
 {
     public function __construct(
-        public string $tmpFile
+        private string $tmpFile
     ) {
     }
 
-    public function canUnserialize(string $value): bool
+    public function getTemporaryFileName(): string
     {
-        if (is_string($value) && str_starts_with($value, 'magewire-file')) {
-            return true;
-        }
-
-        return false;
+        return $this->tmpFile;
     }
 
-    public function serialize(): string
+    public function getOriginalFileName(): string
     {
+        return TempFile::extractOriginalNameFromFilePath($this->tmpFile);
     }
 
-    public function unserialize(): PropertyInterface
+    public function getMimeType(): string
     {
+        return mime_content_type($this->tmpFile);
+    }
 
+    public function getFileSize(): int
+    {
+        return filesize($this->tmpFile);
     }
 }

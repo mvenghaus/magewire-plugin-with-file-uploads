@@ -8,6 +8,7 @@ use Magewirephp\Magewire\Component;
 use Magewirephp\Magewire\Model\Hydrator\Property;
 use Magewirephp\Magewire\Model\RequestInterface;
 use Magewirephp\Magewire\Model\ResponseInterface;
+use MVenghaus\MagewirePluginWithFileUploads\Helper\Directory;
 use MVenghaus\MagewirePluginWithFileUploads\Model\Property\TemporaryUploadedFile;
 
 class PropertyPlugin
@@ -74,7 +75,7 @@ class PropertyPlugin
     {
         $value = str_replace('magewire-file:', '', $value);
 
-        return new TemporaryUploadedFile($value);
+        return new TemporaryUploadedFile(Directory::getTmpDirectory()->getAbsolutePath($value));
     }
 
     /**
@@ -88,7 +89,9 @@ class PropertyPlugin
 
         $temporaryUploadedFiles = [];
         foreach ($tmpFiles as $tmpFile) {
-            $temporaryUploadedFiles[] = new TemporaryUploadedFile($tmpFile);
+            $temporaryUploadedFiles[] = new TemporaryUploadedFile(
+                Directory::getTmpDirectory()->getAbsolutePath($tmpFile)
+            );
         }
 
         return $temporaryUploadedFiles;
@@ -96,7 +99,7 @@ class PropertyPlugin
 
     private function serializeForResponse(TemporaryUploadedFile $temporaryUploadedFile): string
     {
-        return 'magewire-file:' . $temporaryUploadedFile->tmpFile;
+        return 'magewire-file:' . $temporaryUploadedFile->getTemporaryFileName();
     }
 
     /**
@@ -105,7 +108,7 @@ class PropertyPlugin
     private function serializeMultipleForResponse(array $temporaryUploadedFiles): string
     {
         $tmpFiles = array_map(
-            fn(TemporaryUploadedFile $temporaryUploadedFile) => $temporaryUploadedFile->tmpFile,
+            fn(TemporaryUploadedFile $temporaryUploadedFile) => $temporaryUploadedFile->getTemporaryFileName(),
             $temporaryUploadedFiles
         );
 

@@ -6,7 +6,7 @@ namespace MVenghaus\MagewirePluginWithFileUploads\Helper;
 
 class TempFile
 {
-    public function generateHashNameWithOriginalNameEmbedded(string $file): string
+    public static function generateHashNameWithOriginalNameEmbedded(string $file): string
     {
         $hash = uniqid();
         $meta = str_replace('/', '_', '-meta' . base64_encode($file) . '-');
@@ -15,7 +15,7 @@ class TempFile
         return $hash . $meta . $extension;
     }
 
-    public function extractOriginalNameFromFilePath(string $file): string
+    public static function extractOriginalNameFromFilePath(string $file): string
     {
         return base64_decode(
             array_first(
